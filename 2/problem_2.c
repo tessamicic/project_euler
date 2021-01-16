@@ -30,7 +30,11 @@ unsigned int Recursive_Fibonacci(unsigned int n) //this is a recursion but it ra
 }
 /* what is actually happening in the computer:
 	F(5)	= F(4) + F(3)
-			= F(3) + F
+			= (F(3) + F(2)) + (F(2) + F(1))
+			= (F(2) +F(1) +2) + (2 + 1)
+			= ((2 + 1) + 2) + (2 +1))
+			= ((3 + 2) + 3)
+			=  8
 */
 
 unsigned int Iterative_Fibonacci(unsigned int n) //this is a forloop solution
@@ -61,14 +65,38 @@ unsigned int Iterative_Fibonacci(unsigned int n) //this is a forloop solution
 
 	return f_i;
 }
+unsigned int SumEvenFibonacci(unsigned int max_value)
+{
+	
+	unsigned int sum = 2; 			// why did you start at 2? Because we can only start coding from f_i = 3 but we need the first two terms before that add to 2
+	unsigned int f_i = 0;
+	unsigned int f_i_minus_1 = 2;
+	unsigned int f_i_minus_2 =1;
+
+	while(f_i < max_value)
+	{
+		f_i = f_i_minus_1 + f_i_minus_2; 	//the order was important so that all the variables can be updated without disruption.
+		f_i_minus_2 = f_i_minus_1;
+		f_i_minus_1 = f_i;
+		if(f_i % 2 == 0) 
+		{
+			sum += f_i;
+		}
+	
+	}
+	return sum;
+}
 
 int main(int argc, char **argv) // this is the main function which will use the above codes
 {
 	unsigned int answer = 0; //telling you it wants some size of memory 
-	unsigned int n = 2000;
+	unsigned int max_value = 4000000;
 
-	answer = Iterative_Fibonacci(n);
+	answer = SumEvenFibonacci(max_value);
 
-	printf("%u\n", answer);
+	printf("%u\n", answer); // specific for unisgned int
 	return 0;
 }
+
+
+
