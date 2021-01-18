@@ -9,73 +9,18 @@ million, find the sum of the even-valued terms. */
 
 #include <stdio.h>
 
-unsigned int Recursive_Fibonacci(unsigned int n) //this is a recursion but it rather inefficient because of memory in the stack, you run the risk of stackoverflow
-{
-	// 1,2,3,5,8....
-	//F(1) = 1
-	//F(2) = 2
-	//F(n) = F(n-1) +F(n-2)
-	
-	if(n==1)
-	{
-		return 1;
-	}
-	if(n==2)
-	{
-		return 2;
-	}
-
-	return (Recursive_Fibonacci(n-1)+Recursive_Fibonacci(n-2));
-
-}
-/* what is actually happening in the computer:
-	F(5)	= F(4) + F(3)
-			= (F(3) + F(2)) + (F(2) + F(1))
-			= (F(2) +F(1) +2) + (2 + 1)
-			= ((2 + 1) + 2) + (2 +1))
-			= ((3 + 2) + 3)
-			=  8
-*/
-
-unsigned int Iterative_Fibonacci(unsigned int n) //this is a forloop solution
-{
-	// 1,2,3,5,8....
-	//F(1) = 1
-	//F(2) = 2
-	//F(n) = F(n-1) +F(n-2)
-	
-	if(n==1)
-	{
-		return 1;
-	}
-	if(n==2)
-	{
-		return 2;
-	}
-	unsigned int f_i;
-	unsigned int f_i_minus_1 = 2;
-	unsigned int f_i_minus_2 =1;
-
-	for(int i = 2; i < n; i = i+1) // shorthand for final condition = i++
-	{
-		f_i = f_i_minus_1 + f_i_minus_2;
-		f_i_minus_2 = f_i_minus_1;
-		f_i_minus_1 = f_i;
-	}
-
-	return f_i;
-}
 unsigned int SumEvenFibonacci(unsigned int max_value)
 {
-	
-	unsigned int sum = 2; 			// why did you start at 2? Because we can only start coding from f_i = 3 but we need the first two terms before that add to 2
+	// why start at 2? Only start coding from f_i = 3 but need 1st 2 terms before = 2
+	unsigned int sum = 2; 			
 	unsigned int f_i = 0;
 	unsigned int f_i_minus_1 = 2;
 	unsigned int f_i_minus_2 =1;
 
 	while(f_i < max_value)
 	{
-		f_i = f_i_minus_1 + f_i_minus_2; 	//the order was important so that all the variables can be updated without disruption.
+		// order NB so all variables can be updated without disruption.
+		f_i = f_i_minus_1 + f_i_minus_2; 	
 		f_i_minus_2 = f_i_minus_1;
 		f_i_minus_1 = f_i;
 		if(f_i % 2 == 0) 
@@ -87,14 +32,14 @@ unsigned int SumEvenFibonacci(unsigned int max_value)
 	return sum;
 }
 
-int main(int argc, char **argv) // this is the main function which will use the above codes
+int main(int argc, char **argv) 
 {
-	unsigned int answer = 0; //telling you it wants some size of memory 
+	unsigned int answer = 0; 
 	unsigned int max_value = 4000000;
 
 	answer = SumEvenFibonacci(max_value);
 
-	printf("%u\n", answer); // specific for unisgned int
+	printf("%u\n", answer); 
 	return 0;
 }
 
